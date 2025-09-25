@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:5000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face Mask Detection</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8; /* light professional background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 25px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      width: 650px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #0f3057;
+      margin-bottom: 5px;
+      font-size: 2rem;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    /* Status banner */
+    .status-banner {
+      width: 100%;
+      padding: 12px 0;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+
+    /* Video container */
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      margin-bottom: 25px;
+      border: 3px solid #00bcd4;
+    }
+
+    #video-feed {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Buttons */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    button {
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    #start-btn { background-color: #00bcd4; }
+    #stop-btn { background-color: #ff4d4d; }
+
+    button:hover {
+      opacity: 0.85;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Face Mask Detection</h1>
+    <p>Real-time mask detection with your webcam</p>
+
+    <div class="status-banner" id="status-banner" style="background-color: rgb(0, 188, 212);">Status: Running</div>
+
+    <div class="video-container">
+      <img id="video-feed" src="./webpage_files/video_feed">
+    </div>
+
+    <div class="buttons">
+      <button id="start-btn">Start Detection</button>
+      <button id="stop-btn">Stop Detection</button>
+    </div>
+
+    <footer>© 2025 Professional Mask Detection</footer>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('start-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const videoFeed = document.getElementById('video-feed');
+    const statusBanner = document.getElementById('status-banner');
+
+    let streaming = false;
+
+    startBtn.addEventListener('click', () => {
+      if(!streaming){
+        videoFeed.src = '/video_feed'; // Flask route
+        statusBanner.textContent = "Status: Running";
+        statusBanner.style.backgroundColor = "#00bcd4"; // cyan
+        streaming = true;
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if(streaming){
+        videoFeed.src = '';
+        statusBanner.textContent = "Status: Stopped";
+        statusBanner.style.backgroundColor = "#ff4d4d"; // red
+        streaming = false;
+      }
+    });
+  </script>
+
+
+</body></html>
